@@ -1,0 +1,7 @@
+#brand {
+  line-height: 2;
+}
+
+.flags:hover {
+  cursor: pointer;
+}
