@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container'
 
 const App = () => {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <div>
         <TopNav />
         <Container>
