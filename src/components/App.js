@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container'
 
 const App = () => {
   return (
-    <Router>
+    <Router basename ="https://juanbarbera.github.io/react-api">
       <div>
         <TopNav />
         <Container>
