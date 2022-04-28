@@ -83,9 +83,10 @@ const TopNav = props => {
               <NavDropdown.Item as={Link} to={"/post-code"}>{postCodeText()}</NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/fiat-exchange"}>{currencyExchangeText()}</NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/crypto-value"}>{cryptoValueText()}</NavDropdown.Item>
-            </NavDropdown>       
+            </NavDropdown>  
+            <LanguageSelector/>     
           </Nav>
-          <LanguageSelector/>
+          
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -8,70 +8,17 @@ const CryptoValue = props => {
   const [open, setOpen] = useState(false);
   const [currency, setCurrency] = useState('eur');
 
-  // fetching each crypto value conversion with setTimeout since the api doesn't respond all request if they are made at once
   useEffect(() => {
-    props.fetchCryptoValue(`btc-${currency}`);
-    setTimeout(() => {
-        props.fetchCryptoValue(`eth-${currency}`);
-    }, 500)
-    setTimeout(() => {
-        props.fetchCryptoValue(`usdt-${currency}`);
-    }, 1000)
-    setTimeout(() => {
-        props.fetchCryptoValue(`bnb-${currency}`);
-    }, 1500)
-    setTimeout(() => {
-        props.fetchCryptoValue(`usdc-${currency}`);
-    }, 2000)
-    setTimeout(() => {
-        props.fetchCryptoValue(`ada-${currency}`);
-    }, 2500)
-    setTimeout(() => {
-        props.fetchCryptoValue(`sol-${currency}`);
-    }, 3000)
-    setTimeout(() => {
-        props.fetchCryptoValue(`xrp-${currency}`);
-    }, 3500)
-    setTimeout(() => {
-        props.fetchCryptoValue(`luna-${currency}`);
-    }, 4000)
-    setTimeout(() => {
-        props.fetchCryptoValue(`doge-${currency}`);
-    }, 4500)
-    setTimeout(() => {
-        props.fetchCryptoValue(`dot-${currency}`);
-    }, 5000)
-    setTimeout(() => {
-        props.fetchCryptoValue(`avax-${currency}`);
-    }, 5500)
-    setTimeout(() => {
-        props.fetchCryptoValue(`busd-${currency}`);
-    }, 6000)
-    setTimeout(() => {
-        props.fetchCryptoValue(`matic-${currency}`);
-    }, 6500)
-    setTimeout(() => {
-        props.fetchCryptoValue(`shib-${currency}`);
-    }, 7000)
-    setTimeout(() => {
-        props.fetchCryptoValue(`ust-${currency}`);
-    }, 7500)
-    setTimeout(() => {
-        props.fetchCryptoValue(`cro-${currency}`);
-    }, 8000)
-    setTimeout(() => {
-        props.fetchCryptoValue(`wbtc-${currency}`);
-    }, 8500)
-    setTimeout(() => {
-        props.fetchCryptoValue(`dai-${currency}`);
-    }, 9000)
-    setTimeout(() => {
-        props.fetchCryptoValue(`link-${currency}`);
-    }, 9500)
+    if( currency === 'eur' || !currency) {
+      props.fetchCryptoValue('EUR');
+    } else if (currency === 'usd') {
+      props.fetchCryptoValue('USD');
+    } else {
+      props.fetchCryptoValue('BRL');
+    }
   }, [currency]);
 
-  
-  const crypto = props.api;
+  const crypto = props.api.crypto;
   const currencySymbol = () => {
     if (currency === 'eur') {
       return '€';
@@ -82,471 +29,181 @@ const CryptoValue = props => {
     }
   }
 
-  const renderBtc = () => {
-    if (!crypto.btc) {
+  const renderCryptoApi = () => {
+    if (!crypto) {
       return (
-        <Row>
-          <Col>Bitcoin (BTC)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}} >
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
+        <Container className="mt-5" >
+            <Row>
+              <Col>Bitcoin (BTC)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Ethereum (ETH)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Tether (USDT)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Bnb (BNB)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Usd coin (USDC)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Ardano (ADA)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Solana (SOL)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Xrp (XRP)</Col>
+              <Col>Loading...</Col>
+            </Row>          
+            <Row>
+              <Col>Terra (LUNA)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Dogecoin (DOGE)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Polkadot (DOT)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Avalanche (AVAX)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Binance usd (BUSD)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Polygon (MATIC)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Shiba Inu (SHIB)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>TerraUSD (UST)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Crypo.com Coin (CRO)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Wrapped Bitcoin (WBTC)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Dai (DAI)</Col>
+              <Col>Loading...</Col>
+            </Row>
+            <Row>
+              <Col>Chainlink (LINK)</Col>
+              <Col>Loading...</Col>
+            </Row>
+          </Container>
       )
     } else {
+      // console.log(crypto[0])
       return (
-        <Row>
-          <Col>Bitcoin (BTC)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.btc).toFixed(2)}</Col>
-        </Row>
+        <Container className="mt-5" >
+          <Row>
+            <Col>Bitcoin (BTC)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[3].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Ethereum (ETH)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[9].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Tether (USDT)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[16].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Bnb (BNB)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[2].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Usd coin (USDC)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[15].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Ardano (ADA)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[0].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Solana (SOL)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[14].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Xrp (XRP)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[19].rate)).toFixed(3)}</Col>
+          </Row>          
+          <Row>
+            <Col>Terra (LUNA)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[11].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Dogecoin (DOGE)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[7].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Polkadot (DOT)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[8].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Avalanche (AVAX)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[1].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Binance usd (BUSD)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[4].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Polygon (MATIC)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[3].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Shiba Inu (SHIB)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[13].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>TerraUSD (UST)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[17].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Crypo.com Coin (CRO)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[5].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Wrapped Bitcoin (WBTC)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[18].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Dai (DAI)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[6].rate)).toFixed(3)}</Col>
+          </Row>
+          <Row>
+            <Col>Chainlink (LINK)</Col>
+            <Col>{currencySymbol()}{parseFloat(1/parseFloat(crypto[10].rate)).toFixed(3)}</Col>
+          </Row> 
+       </Container>
       )
     }
   }
 
-  const renderEth = () => {
-    if (!crypto.eth) {
-      return (
-        <Row>
-          <Col>Ethereum (ETH)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Ethereum (ETH)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.eth).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderUsdt = () => {
-    if (!crypto.usdt) {
-      return (
-        <Row>
-          <Col>Tether (USDT)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Tether (USDT)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.usdt).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderBnb = () => {
-    if (!crypto.bnb) {
-      return (
-        <Row>
-          <Col>Bnb (BNB)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Bnb (BNB)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.bnb).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderUsdc = () => {
-    if (!crypto.usdc) {
-      return (
-        <Row>
-          <Col>Usd coin (USDC)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Usd coin (USDC)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.usdc).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderAda = () => {
-    if (!crypto.ada) {
-      return (
-        <Row>
-          <Col>Ardano (ADA)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Ardano (ADA)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.ada).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderSol = () => {
-    if (!crypto.sol) {
-      return (
-        <Row>
-          <Col>Solana (SOL)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Solana (SOL)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.sol).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderXrp = () => {
-    if (!crypto.xrp) {
-      return (
-        <Row>
-          <Col>Xrp (XRP)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Xrp (XRP)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.xrp).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderLuna = () => {
-    if (!crypto.luna) {
-      return (
-        <Row>
-          <Col>Terra (LUNA)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Terra (LUNA)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.luna).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderDoge = () => {
-    if (!crypto.doge) {
-      return (
-        <Row>
-          <Col>Dogecoin (DOGE)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Dogecoin (DOGE)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.doge).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderDot = () => {
-    if (!crypto.dot) {
-      return (
-        <Row>
-          <Col>Polkadot (DOT)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Polkadot (DOT)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.dot).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderAvax = () => {
-    if (!crypto.avax) {
-      return (
-        <Row>
-          <Col>Avalanche (AVAX)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Avalanche (AVAX)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.avax).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderBusd = () => {
-    if (!crypto.busd) {
-      return (
-        <Row>
-          <Col>Binance usd (BUSD)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Binance usd (BUSD)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.busd).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderMatic = () => {
-    if (!crypto.matic) {
-      return (
-        <Row>
-          <Col>Polygon (MATIC)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Polygon (MATIC)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.matic).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderShib = () => {
-    if (!crypto.shib) {
-      return (
-        <Row>
-          <Col>Shiba Inu (SHIB)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Shiba Inu (SHIB)</Col>
-          <Col>{currencySymbol()}{crypto.shib}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderUst = () => {
-    if (!crypto.ust) {
-      return (
-        <Row>
-          <Col>TerraUSD (UST)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>TerraUSD (UST)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.ust).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-  
-  const renderCro = () => {
-    if (!crypto.cro) {
-      return (
-        <Row>
-          <Col>Crypo.com Coin (CRO)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Crypo.com Coin (CRO)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.cro).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderWbtc = () => {
-    if (!crypto.wbtc) {
-      return (
-        <Row>
-          <Col>Wrapped Bitcoin (WBTC)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Wrapped Bitcoin (WBTC)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.wbtc).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderDai = () => {
-    if (!crypto.dai) {
-      return (
-        <Row>
-          <Col>Dai (DAI)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Dai (DAI)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.dai).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-
-  const renderLink = () => {
-    if (!crypto.link) {
-      return (
-        <Row>
-          <Col>Chainlink (LINK)</Col>
-          <Col>
-            <Spinner animation="grow" role="status" style={{width: '16px', height: '16px'}}>
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (
-        <Row>
-          <Col>Chainlink (LINK)</Col>
-          <Col>{currencySymbol()}{parseFloat(crypto.link).toFixed(2)}</Col>
-        </Row>
-      )
-    }
-  }
-  const renderRows = () => {
-    return (
-      <Container className="mt-5" >
-        {renderBtc()}
-        {renderEth()}
-        {renderUsdt()}
-        {renderBnb()}
-        {renderUsdc()}
-        {renderAda()}
-        {renderSol()}
-        {renderXrp()}         
-        {renderLuna()} 
-        {renderDoge()}
-        {renderDot()}
-        {renderAvax()}
-        {renderBusd()}
-        {renderMatic()}
-        {renderShib()}
-        {renderUst()}
-        {renderCro()}
-        {renderWbtc()}
-        {renderDai()}
-        {renderLink()}
-      </Container>
-    )    
-  }
   
   const titleText = () => {
     if (props.language.language === 'english' || !props.language.language) {
@@ -572,7 +229,7 @@ const CryptoValue = props => {
       </div>
       <div>
         <Container className="bt-5 d-flex justify-content-center text-center">
-          {renderRows()}
+          {renderCryptoApi()}
         </Container>
       </div>
       <div className="mt-5">

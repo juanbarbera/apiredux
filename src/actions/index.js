@@ -15,7 +15,7 @@ export const changeLanguage = language => {
 }
 
 export const fetchCarPlate = value => async dispatch => {
-  const response = await carPlate.get(`/${value}/json`);
+  const response = await carPlate.get(`/${value.toLowerCase()}/json`);
 
   dispatch({ type: FETCH_CARPLATE, payload: response.data});
 }
@@ -36,9 +36,13 @@ export const fetchFiatExchange = () => async dispatch => {
 }
 // example: https://v6.exchangerate-api.com/v6/4f50c2f5843c9fe83fc45554/latest/EUR
 
-export const fetchCryptoValue = (conversion) => async dispatch => {
-  const response = await cryptoValue.get(`/${conversion}`);
-
-  dispatch({ type: FETCH_CRYPTOVALUE, payload: response.data.ticker})
+export const fetchCryptoValue = (currency) => async dispatch => {
+  const response = await cryptoValue.get(`/v1/exchangerate/${currency}?invert={invert}`, {
+  params: {
+    apiKey: 'F25BD0B8-BDA8-4122-880E-B6DE5C1C214A',
+    filter_asset_id: 'BTC,ETH,USDT,BNB,USDC,ADA,SOL,XRP,LUNA,DOGE,DOT,AVAX,BUSD,MATIC,SHIB,UST,CRO,WBTC,DAI,LINK'
+  }});
+  
+  dispatch({ type: FETCH_CRYPTOVALUE, payload: response.data.rates})
 }
 // example: https://api.cryptonator.com/api/ticker/shib-eur

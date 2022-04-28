@@ -174,13 +174,14 @@ const CarPlateInfo = props => {
 
   return (
     <div className = "mt-5">
-      <h1>{titleText()}</h1>
-      <div className = "mt-5">
+      <h1 style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>{titleText()}</h1>
+      <div className = "mt-5" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
         <ReusableForm
           label = {labelText()}
           placeholder = "fui4130"
           submit = "Submit"
           onSubmit = {onSubmit}
+          type="plate"
         />
       </div>
       <div className="bt-5 d-flex justify-content-center text-center">{renderApi()}</div>

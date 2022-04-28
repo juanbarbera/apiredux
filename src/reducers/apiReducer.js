@@ -14,7 +14,7 @@ export default (state = {}, action) => {
     case FETCH_FIATEXCHANGE:
       return {...state, current: action.payload};
     case FETCH_CRYPTOVALUE:
-      return {...state, [action.payload.base.toLowerCase()]: action.payload.price}
+      return {...state, crypto: action.payload}
     default:
       return state;
   }

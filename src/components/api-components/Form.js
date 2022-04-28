@@ -1,38 +1,32 @@
 import React from 'react';
-import { Form, Field } from 'react-final-form';
+import { Formik, Field, Form } from 'formik';
 
 import Button from 'react-bootstrap/Button';
 import { Form as BootstrapForm } from 'react-bootstrap';
 
 
-class ReusableForm extends React.Component {
-  // destructures input, meta and placeholder from props. placeholder is an additional props passed by me that is automatically identified as prop an passed to the component.
-  renderInput = ({ input, meta, placeholder }) => {
-    return (
-      <BootstrapForm.Control {...input} type="text" placeholder={placeholder} autoComplete="off"/>
-    )
-  }
+const ReusableForm = props => {
 
-  onSubmit = value => {
-    this.props.onSubmit(value);
-  }
-
-  render() {
-    return (
-      <Form onSubmit={this.onSubmit} label={this.props.label} placeholder={this.props.placeholder} >
-        {props => (
-          <BootstrapForm onSubmit={props.handleSubmit}>
-            <BootstrapForm.Group className="mb-3" controlId="searchTermForm">
-              <BootstrapForm.Label>{props.label}</BootstrapForm.Label>
-              {/* placeholder is passed as props to renderInput. */}
-              <Field name="searchTerm" component={this.renderInput} placeholder={props.placeholder} />
-              </BootstrapForm.Group>
-            <Button variant="outline-info" type="submit" style={{justifyContent: 'center'}}>Submit</Button>
-          </BootstrapForm>
-        )}
-      </Form>
-    )
-  };
+  return (
+    <Formik
+      initialValues={{
+        searchTerm: ''
+      }}
+      onSubmit={value => {
+        props.onSubmit(value);
+      }}
+    >
+        <Form>
+        <BootstrapForm.Group className="mb-3" >
+          <BootstrapForm.Label htmlFor="searchTerm">{props.label}</BootstrapForm.Label>
+          <div>
+            <Field id="searchTerm" name="searchTerm" autoComplete="off" placeholder={props.placeholder}/>
+          </div>
+        </BootstrapForm.Group> 
+        <Button variant="outline-info" type="submit">Submit</Button>                   
+      </Form>  
+    </Formik>
+  );
 }
 
 export default ReusableForm;

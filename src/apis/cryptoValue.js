@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://api.cryptonator.com/api/ticker'
+  baseURL: 'https://rest.coinapi.io/'
 })
 
 

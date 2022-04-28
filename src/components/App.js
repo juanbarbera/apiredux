@@ -10,8 +10,8 @@ import Container from 'react-bootstrap/Container'
 
 const App = () => {
   return (
-    <Router basename ="https://juanbarbera.github.io/react-api">
-      <div>
+    <Router>
+      <>
         <TopNav />
         <Container>
           <Routes>
@@ -21,7 +21,7 @@ const App = () => {
             <Route path="/crypto-value" element={<CryptoValue />} />  
           </Routes>
         </Container>
-      </div>
+      </>
     </Router>
   );
 };
